@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #080a0f;
+  --color-ink-900: #0c0f16;
+  --color-ink-850: #11151d;
+  --color-ink-800: #161b25;
+  --color-ink-700: #1e2532;
+  --color-ink-600: #2a3342;
+  --color-ink-500: #3b4658;
+  --color-mist-500: #66748a;
+  --color-mist-400: #8593a8;
+  --color-mist-300: #a3afc0;
+  --color-mist-100: #e8ecf4;
+  --color-accent-300: #7ff3e0;
+  --color-accent-400: #5eead4;
+  --color-accent-500: #2dd4bf;
+  --color-accent-600: #14b8a6;
+  --color-ember-400: #fcd34d;
+  --color-ember-500: #f59e0b;
+  --color-rose-400: #fb7185;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    color: var(--color-mist-100);
+    background:
+      radial-gradient(900px 520px at 12% -8%, rgba(45, 212, 191, 0.14) 0%, transparent 62%),
+      radial-gradient(760px 460px at 100% 4%, rgba(129, 140, 248, 0.12) 0%, transparent 58%),
+      var(--color-ink-950);
+    background-attachment: fixed;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+      sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: var(--color-accent-500);
+    color: #04211c;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer components {
+  .panel {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background:
+      linear-gradient(180deg, rgba(34, 42, 57, 0.82), rgba(11, 14, 20, 0.92));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 30px 60px -42px rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .key {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, #242c3a, #141922);
+    color: var(--color-mist-100);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 8px 18px -12px rgba(0, 0, 0, 0.95);
+    transition:
+      transform 0.08s ease,
+      box-shadow 0.14s ease,
+      background 0.14s ease,
+      border-color 0.14s ease;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  @media (hover: hover) {
+    .key:hover:not(:disabled) {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: linear-gradient(180deg, #2c3648, #182030);
+    }
+  }
+
+  .key:active:not(:disabled),
+  .key[data-pressed="true"] {
+    transform: translateY(1px) scale(0.985);
+    background: linear-gradient(180deg, #1d3a39, #14282b);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 0 0 1px rgba(45, 212, 191, 0.4),
+      0 0 26px -8px rgba(45, 212, 191, 0.75);
+  }
+
+  .key[data-variant="accent"] {
+    background: linear-gradient(180deg, var(--color-accent-400), var(--color-accent-600));
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #04211c;
+    font-weight: 600;
+  }
+
+  .key[data-variant="power"] {
+    background: linear-gradient(180deg, #3b2129, #241318);
+    border-color: rgba(251, 113, 133, 0.28);
+    color: #fda4af;
+  }
+
+  .key[data-variant="ghost"] {
+    background: rgba(255, 255, 255, 0.035);
+    box-shadow: none;
+  }
+
+  .key[data-unlearned="true"] {
+    border-style: dashed;
+    border-color: rgba(252, 211, 77, 0.42);
+    color: var(--color-ember-400);
+    background: linear-gradient(180deg, rgba(40, 35, 22, 0.85), rgba(20, 18, 12, 0.85));
+  }
+
+  .key:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .focusable:focus-visible {
+    outline: 2px solid var(--color-accent-400);
+    outline-offset: 2px;
+  }
+
+  .label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-mist-500);
+    font-weight: 600;
+  }
+}
+
+.progress-ring circle {
+  transition: stroke-dashoffset 0.35s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key,
+  .progress-ring circle {
+    transition: none;
+  }
+}
